@@ -1,0 +1,419 @@
+{
+  "source": {
+    "paper": "How APIs Create Growth by Inverting the Firm",
+    "table": "Table 1 main result",
+    "stata_source": "programs/2_stata_regressions.do",
+    "data": "analysis_dataset/api_compustat_clean.dta"
+  },
+  "specification": {
+    "outcome": "ln_mkt_val",
+    "treatment": "api_treat_post",
+    "fixed_effects": ["gvkey", "date"],
+    "standard_errors": "Main results clustered by gvkey; double-cluster result clustered by gvkey and date.",
+    "estimator": "fixest::feols",
+    "singleton_handling": "Firm and quarter singleton fixed-effect observations are iteratively removed before estimation to match reghdfe.",
+    "duplicate_handling": "The published Table 1 sample keeps the 11 duplicate gvkey-quarter rows present after preprocessing; this script keeps them as well."
+  },
+  "results": [
+    {
+      "model": "All Firms",
+      "vcov": "clustered_by_gvkey",
+      "term": "Post x API",
+      "estimate": 0.386817648995468,
+      "std_error": 0.0855215225618623,
+      "statistic": 4.52304446188574,
+      "p_value": 6.24753867816902e-06,
+      "stars": "***",
+      "r2_adjusted": 0.932438264292449,
+      "observations": 133202,
+      "firms": 4647,
+      "api_adopters": 177,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    },
+    {
+      "model": "Excluding Top 20 Firms with Most Popular APIs",
+      "vcov": "clustered_by_gvkey",
+      "term": "Post x API",
+      "estimate": 0.369770125227133,
+      "std_error": 0.0860305431360578,
+      "statistic": 4.29812612762818,
+      "p_value": 1.75789344869962e-05,
+      "stars": "***",
+      "r2_adjusted": 0.930756883357161,
+      "observations": 132446,
+      "firms": 4627,
+      "api_adopters": 157,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    },
+    {
+      "model": "Excluding Industries with Fewer than 1% Firms with APIs",
+      "vcov": "clustered_by_gvkey",
+      "term": "Post x API",
+      "estimate": 0.376720096725575,
+      "std_error": 0.0856290752154654,
+      "statistic": 4.39944137873318,
+      "p_value": 1.11052421250993e-05,
+      "stars": "***",
+      "r2_adjusted": 0.932197513103834,
+      "observations": 127796,
+      "firms": 4478,
+      "api_adopters": 176,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    },
+    {
+      "model": "Excluding Any Firm in Computer Services",
+      "vcov": "clustered_by_gvkey",
+      "term": "Post x API",
+      "estimate": 0.321660076962769,
+      "std_error": 0.0970669969879832,
+      "statistic": 3.31379446098029,
+      "p_value": 0.000928461589117166,
+      "stars": "***",
+      "r2_adjusted": 0.933758145792603,
+      "observations": 119201,
+      "firms": 4060,
+      "api_adopters": 100,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    },
+    {
+      "model": "Year API < 2012",
+      "vcov": "clustered_by_gvkey",
+      "term": "Post x API",
+      "estimate": 0.749616633212877,
+      "std_error": 0.140340543091318,
+      "statistic": 5.34141180232651,
+      "p_value": 9.67186511637528e-08,
+      "stars": "***",
+      "r2_adjusted": 0.929240542084463,
+      "observations": 129670,
+      "firms": 4556,
+      "api_adopters": 86,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    },
+    {
+      "model": "Year API >= 2012",
+      "vcov": "clustered_by_gvkey",
+      "term": "Post x API",
+      "estimate": 0.259689972252807,
+      "std_error": 0.0996630453744693,
+      "statistic": 2.60567968073884,
+      "p_value": 0.00919902301569482,
+      "stars": "**",
+      "r2_adjusted": 0.92877790258646,
+      "observations": 130040,
+      "firms": 4561,
+      "api_adopters": 91,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    }
+  ],
+  "double_cluster_results": [
+    {
+      "model": "All Firms",
+      "vcov": "clustered_by_gvkey_and_date",
+      "term": "Post x API",
+      "estimate": 0.386817648995468,
+      "std_error": 0.0916411913011959,
+      "statistic": 4.22100196978147,
+      "p_value": 9.37398630999886e-05,
+      "stars": "***",
+      "r2_adjusted": 0.932438264292449,
+      "observations": 133202,
+      "firms": 4647,
+      "api_adopters": 177,
+      "firm_fe": "Yes",
+      "quarter_fe": "Yes"
+    }
+  ],
+  "pretrend": {
+    "figure": "figures/TABLE_01_pretrend_event_study_replication.png",
+    "visible_coefficients": [
+      {
+        "term": "sinceAPIq_F8",
+        "relative_quarter": -8,
+        "estimate": -0.0643367749659238,
+        "std_error": 0.0693663292570826,
+        "conf_low": -0.200294780309806,
+        "conf_high": 0.0716212303779581
+      },
+      {
+        "term": "sinceAPIq_F7",
+        "relative_quarter": -7,
+        "estimate": -0.0619431056238908,
+        "std_error": 0.0641779755596402,
+        "conf_low": -0.187731937720786,
+        "conf_high": 0.0638457264730039
+      },
+      {
+        "term": "sinceAPIq_F6",
+        "relative_quarter": -6,
+        "estimate": -0.037243625365721,
+        "std_error": 0.0585295994401691,
+        "conf_low": -0.151961640268452,
+        "conf_high": 0.0774743895370103
+      },
+      {
+        "term": "sinceAPIq_F5",
+        "relative_quarter": -5,
+        "estimate": -0.0541951832256391,
+        "std_error": 0.0482319534253981,
+        "conf_low": -0.148729811939419,
+        "conf_high": 0.0403394454881412
+      },
+      {
+        "term": "sinceAPIq_F4",
+        "relative_quarter": -4,
+        "estimate": -0.0696801687202976,
+        "std_error": 0.0453023769468093,
+        "conf_low": -0.158472827536044,
+        "conf_high": 0.0191124900954486
+      },
+      {
+        "term": "sinceAPIq_F3",
+        "relative_quarter": -3,
+        "estimate": -0.0635576850074429,
+        "std_error": 0.0352366428278813,
+        "conf_low": -0.13262150495009,
+        "conf_high": 0.0055061349352044
+      },
+      {
+        "term": "sinceAPIq_F2",
+        "relative_quarter": -2,
+        "estimate": -0.0231825097144266,
+        "std_error": 0.0294249423166188,
+        "conf_low": -0.0808553966549994,
+        "conf_high": 0.0344903772261462
+      },
+      {
+        "term": "sinceAPIq_F1",
+        "relative_quarter": -1,
+        "estimate": -0.000627607869942927,
+        "std_error": 0.0226643872480677,
+        "conf_low": -0.0450498068761556,
+        "conf_high": 0.0437945911362697
+      },
+      {
+        "relative_quarter": 0,
+        "estimate": 0,
+        "std_error": 0,
+        "conf_low": 0,
+        "conf_high": 0
+      },
+      {
+        "term": "sinceAPIq_L1",
+        "relative_quarter": 1,
+        "estimate": 0.0376284108390821,
+        "std_error": 0.03248642781072,
+        "conf_low": -0.0260449876699291,
+        "conf_high": 0.101301809348093
+      },
+      {
+        "term": "sinceAPIq_L2",
+        "relative_quarter": 2,
+        "estimate": 0.0293698759881175,
+        "std_error": 0.036691577398313,
+        "conf_low": -0.0425456157125759,
+        "conf_high": 0.101285367688811
+      },
+      {
+        "term": "sinceAPIq_L3",
+        "relative_quarter": 3,
+        "estimate": 0.0554338637357564,
+        "std_error": 0.0376327463077379,
+        "conf_low": -0.01832631902741,
+        "conf_high": 0.129194046498923
+      },
+      {
+        "term": "sinceAPIq_L4",
+        "relative_quarter": 4,
+        "estimate": 0.0651783421732605,
+        "std_error": 0.044217872650333,
+        "conf_low": -0.0214886882213923,
+        "conf_high": 0.151845372567913
+      },
+      {
+        "term": "sinceAPIq_L5",
+        "relative_quarter": 5,
+        "estimate": 0.060297960831491,
+        "std_error": 0.0514468182703796,
+        "conf_low": -0.040537802978453,
+        "conf_high": 0.161133724641435
+      },
+      {
+        "term": "sinceAPIq_L6",
+        "relative_quarter": 6,
+        "estimate": 0.0988078278872324,
+        "std_error": 0.0569834153654546,
+        "conf_low": -0.0128796662290586,
+        "conf_high": 0.210495322003523
+      },
+      {
+        "term": "sinceAPIq_L7",
+        "relative_quarter": 7,
+        "estimate": 0.122974104340511,
+        "std_error": 0.0590426900633143,
+        "conf_low": 0.00725043181641527,
+        "conf_high": 0.238697776864607
+      },
+      {
+        "term": "sinceAPIq_L8",
+        "relative_quarter": 8,
+        "estimate": 0.125979767634695,
+        "std_error": 0.0607379842168515,
+        "conf_low": 0.00693331856966607,
+        "conf_high": 0.245026216699724
+      }
+    ],
+    "pretrend_joint_test": [
+      {
+        "tested_terms": "sinceAPIq_F8, sinceAPIq_F7, sinceAPIq_F6, sinceAPIq_F5, sinceAPIq_F4, sinceAPIq_F3, sinceAPIq_F2, sinceAPIq_F1",
+        "statistic": 9.97900969456641,
+        "df": 8,
+        "p_value": 0.266502254231362
+      }
+    ]
+  },
+  "santanna_did": {
+    "estimator": "did::att_gt by Callaway and Sant'Anna",
+    "control_group": "notyettreated",
+    "figure": "figures/TABLE_01_did_santanna_dynamic_replication.png",
+    "warnings": ["Dropped 8 units that were already treated in the first period.", "Be aware that there are some small groups in your dataset.\n  Check groups: 189,192,193,196,197,198,199,200,201,202,203,204,205,206,207,209,210,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,242.", "No units in group 196 in time period 229", "No units in group 196 in time period 230", "No units in group 196 in time period 231", "No units in group 196 in time period 232", "No units in group 196 in time period 233", "No units in group 196 in time period 234", "No units in group 196 in time period 235", "No units in group 196 in time period 236", "No units in group 196 in time period 237", "No units in group 196 in time period 238", "No units in group 196 in time period 239", "No units in group 196 in time period 240", "No units in group 196 in time period 241", "No units in group 196 in time period 242", "No units in group 199 in time period 189", "No units in group 199 in time period 188", "No units in group 199 in time period 190", "No units in group 199 in time period 191", "No units in group 199 in time period 192", "No units in group 199 in time period 193", "No units in group 199 in time period 194", "No units in group 199 in time period 195", "No units in group 199 in time period 196", "No units in group 199 in time period 197", "No units in group 206 in time period 191", "No units in group 217 in time period 189", "No units in group 217 in time period 188", "No units in group 217 in time period 190", "No units in group 217 in time period 191", "No units in group 217 in time period 192", "No units in group 217 in time period 193", "No units in group 217 in time period 194", "No units in group 217 in time period 195", "No units in group 217 in time period 196", "No units in group 217 in time period 197", "No units in group 217 in time period 198", "No units in group 217 in time period 199", "No units in group 217 in time period 200", "No units in group 217 in time period 201", "No units in group 217 in time period 202", "No units in group 217 in time period 203", "No units in group 217 in time period 204", "No units in group 217 in time period 205", "No units in group 217 in time period 206", "No units in group 217 in time period 207", "No units in group 217 in time period 208", "No units in group 217 in time period 209", "No units in group 217 in time period 210", "No units in group 217 in time period 211", "No units in group 217 in time period 212", "No units in group 217 in time period 213", "No units in group 217 in time period 214", "No units in group 217 in time period 215", "No units in group 217 in time period 216", "No units in group 217 in time period 217", "No units in group 217 in time period 218", "No units in group 217 in time period 219", "No units in group 217 in time period 220", "No units in group 217 in time period 221", "No units in group 217 in time period 222", "No units in group 217 in time period 223", "No units in group 217 in time period 224", "No units in group 217 in time period 225", "No units in group 217 in time period 226", "No units in group 217 in time period 227", "No units in group 217 in time period 228", "No units in group 217 in time period 229", "No units in group 217 in time period 230", "No units in group 217 in time period 231", "No units in group 217 in time period 232", "No units in group 217 in time period 233", "No units in group 217 in time period 234", "No units in group 217 in time period 235", "No units in group 217 in time period 236", "No units in group 217 in time period 237", "No units in group 217 in time period 238", "No units in group 217 in time period 239", "No units in group 217 in time period 240", "No units in group 217 in time period 241", "No units in group 218 in time period 189", "No units in group 218 in time period 188", "No units in group 218 in time period 190", "No units in group 218 in time period 191", "No units in group 218 in time period 192", "No units in group 218 in time period 193", "No units in group 218 in time period 194", "No units in group 218 in time period 195", "No units in group 218 in time period 196", "No units in group 218 in time period 197", "No units in group 218 in time period 198", "No units in group 218 in time period 199", "No units in group 218 in time period 200", "No units in group 219 in time period 189", "No units in group 219 in time period 188", "No units in group 219 in time period 190", "No units in group 219 in time period 191", "No units in group 219 in time period 192", "No units in group 219 in time period 193", "No units in group 219 in time period 194", "No units in group 219 in time period 195", "No units in group 219 in time period 196", "No units in group 219 in time period 197", "No units in group 219 in time period 198", "No units in group 219 in time period 199", "No units in group 219 in time period 200", "No units in group 219 in time period 201", "No units in group 219 in time period 202", "No units in group 219 in time period 203", "No units in group 219 in time period 204", "No units in group 219 in time period 205", "No units in group 219 in time period 206", "No units in group 219 in time period 207", "No units in group 219 in time period 208", "No units in group 219 in time period 209", "No units in group 219 in time period 210", "No units in group 219 in time period 211", "No units in group 219 in time period 212", "No units in group 219 in time period 213", "No units in group 219 in time period 214", "No units in group 219 in time period 215", "No units in group 219 in time period 216", "No units in group 224 in time period 189", "No units in group 224 in time period 188", "No units in group 224 in time period 190", "No units in group 224 in time period 191", "No units in group 224 in time period 192", "No units in group 224 in time period 193", "No units in group 224 in time period 194", "No units in group 224 in time period 195", "No units in group 224 in time period 196", "No units in group 224 in time period 197", "No units in group 224 in time period 198", "No units in group 224 in time period 199", "No units in group 224 in time period 200", "No units in group 224 in time period 201", "No units in group 224 in time period 202", "No units in group 224 in time period 203", "No units in group 224 in time period 204", "No units in group 224 in time period 205", "No units in group 224 in time period 206", "No units in group 224 in time period 207", "No units in group 224 in time period 208", "No units in group 224 in time period 209", "No units in group 224 in time period 225", "No units in group 224 in time period 226", "No units in group 224 in time period 227", "No units in group 224 in time period 228", "No units in group 224 in time period 229", "No units in group 224 in time period 230", "No units in group 224 in time period 231", "No units in group 224 in time period 232", "No units in group 224 in time period 233", "No units in group 224 in time period 234", "No units in group 224 in time period 235", "No units in group 224 in time period 236", "No units in group 224 in time period 237", "No units in group 224 in time period 238", "No units in group 224 in time period 239", "No units in group 224 in time period 240", "No units in group 224 in time period 241", "No units in group 224 in time period 242", "No units in group 225 in time period 189", "No units in group 225 in time period 188", "No units in group 225 in time period 190", "No units in group 225 in time period 191", "No units in group 225 in time period 192", "No units in group 225 in time period 193", "No units in group 225 in time period 194", "No units in group 225 in time period 195", "No units in group 225 in time period 196", "No units in group 225 in time period 197", "No units in group 225 in time period 198", "No units in group 225 in time period 199", "No units in group 225 in time period 200", "No units in group 225 in time period 201", "No units in group 225 in time period 202", "No units in group 225 in time period 203", "No units in group 225 in time period 204", "No units in group 225 in time period 205", "No units in group 225 in time period 206", "No units in group 225 in time period 207", "No units in group 225 in time period 208", "No units in group 225 in time period 209", "No units in group 225 in time period 210", "No units in group 225 in time period 211", "No units in group 225 in time period 212", "No units in group 225 in time period 213", "No units in group 225 in time period 214", "No units in group 225 in time period 215", "No units in group 225 in time period 216", "No units in group 225 in time period 217", "No units in group 225 in time period 218", "No units in group 225 in time period 219", "No units in group 225 in time period 220", "No units in group 225 in time period 221", "No units in group 225 in time period 222", "No units in group 225 in time period 223", "No units in group 225 in time period 224", "No units in group 225 in time period 225", "No units in group 225 in time period 226", "No units in group 225 in time period 227", "No units in group 225 in time period 228", "No units in group 225 in time period 229", "No units in group 225 in time period 230", "No units in group 225 in time period 231", "No units in group 225 in time period 232", "No units in group 225 in time period 233", "No units in group 225 in time period 234", "No units in group 225 in time period 235", "No units in group 225 in time period 236", "No units in group 225 in time period 237", "No units in group 225 in time period 238", "No units in group 225 in time period 239", "No units in group 225 in time period 240", "No units in group 225 in time period 241", "No units in group 226 in time period 189", "No units in group 226 in time period 188", "No units in group 226 in time period 190", "No units in group 226 in time period 191", "No units in group 226 in time period 192", "No units in group 226 in time period 193", "No units in group 226 in time period 194", "No units in group 226 in time period 195", "No units in group 226 in time period 196", "No units in group 226 in time period 197", "No units in group 226 in time period 198", "No units in group 226 in time period 199", "No units in group 226 in time period 200", "No units in group 226 in time period 201", "No units in group 226 in time period 202", "No units in group 226 in time period 203", "No units in group 226 in time period 204", "No units in group 226 in time period 205", "No units in group 226 in time period 206", "No units in group 226 in time period 207", "No units in group 226 in time period 208", "No units in group 226 in time period 209", "No units in group 226 in time period 210", "No units in group 226 in time period 211", "No units in group 226 in time period 212", "No units in group 226 in time period 213", "No units in group 226 in time period 214", "No units in group 226 in time period 215", "No units in group 226 in time period 216", "No units in group 226 in time period 217", "No units in group 226 in time period 218", "No units in group 226 in time period 219", "No units in group 226 in time period 220", "No units in group 226 in time period 221", "No units in group 226 in time period 222", "No units in group 226 in time period 223", "No units in group 226 in time period 224", "No units in group 226 in time period 225", "No units in group 226 in time period 226", "No units in group 226 in time period 227", "No units in group 226 in time period 228", "No units in group 226 in time period 229", "No units in group 226 in time period 230", "No units in group 226 in time period 231", "No units in group 226 in time period 232", "No units in group 226 in time period 233", "No units in group 226 in time period 234", "No units in group 226 in time period 235", "No units in group 226 in time period 236", "No units in group 226 in time period 237", "No units in group 226 in time period 238", "No units in group 226 in time period 239", "No units in group 226 in time period 240", "No units in group 226 in time period 241", "No units in group 227 in time period 189", "No units in group 227 in time period 188", "No units in group 227 in time period 190", "No units in group 227 in time period 191", "No units in group 227 in time period 192", "No units in group 227 in time period 193", "No units in group 227 in time period 194", "No units in group 227 in time period 195", "No units in group 227 in time period 196", "No units in group 227 in time period 197", "No units in group 227 in time period 198", "No units in group 227 in time period 199", "No units in group 227 in time period 200", "No units in group 227 in time period 201", "No units in group 227 in time period 202", "No units in group 227 in time period 203", "No units in group 227 in time period 204", "No units in group 227 in time period 205", "No units in group 227 in time period 206", "No units in group 227 in time period 207", "No units in group 227 in time period 208", "No units in group 227 in time period 209", "No units in group 227 in time period 210", "No units in group 227 in time period 211", "No units in group 227 in time period 212", "No units in group 227 in time period 213", "No units in group 228 in time period 189", "No units in group 228 in time period 188", "No units in group 228 in time period 235", "No units in group 228 in time period 236", "No units in group 228 in time period 237", "No units in group 228 in time period 238", "No units in group 228 in time period 239", "No units in group 228 in time period 240", "No units in group 228 in time period 241", "No units in group 228 in time period 242", "No units in group 229 in time period 189", "No units in group 229 in time period 188", "No units in group 229 in time period 190", "No units in group 229 in time period 191", "No units in group 229 in time period 192", "No units in group 229 in time period 193", "No units in group 229 in time period 194", "No units in group 229 in time period 195", "No units in group 229 in time period 196", "No units in group 229 in time period 197", "No units in group 229 in time period 198", "No units in group 229 in time period 199", "No units in group 229 in time period 200", "No units in group 229 in time period 201", "No units in group 229 in time period 202", "No units in group 229 in time period 203", "No units in group 229 in time period 204", "No units in group 229 in time period 205", "No units in group 229 in time period 206", "No units in group 229 in time period 207", "No units in group 229 in time period 208", "No units in group 229 in time period 209", "No units in group 229 in time period 210", "No units in group 229 in time period 211", "No units in group 229 in time period 212", "No units in group 229 in time period 213", "No units in group 229 in time period 214", "No units in group 229 in time period 215", "No units in group 229 in time period 216", "No units in group 229 in time period 217", "No units in group 229 in time period 218", "No units in group 229 in time period 219", "No units in group 229 in time period 220", "No units in group 229 in time period 221", "No units in group 229 in time period 222", "No units in group 229 in time period 223", "No units in group 229 in time period 224", "No units in group 229 in time period 225", "No units in group 229 in time period 226", "No units in group 232 in time period 189", "No units in group 232 in time period 188", "No units in group 232 in time period 190", "No units in group 232 in time period 191", "No units in group 232 in time period 192", "No units in group 232 in time period 193", "No units in group 232 in time period 194", "No units in group 232 in time period 195", "No units in group 232 in time period 196", "No units in group 232 in time period 197", "No units in group 232 in time period 198", "No units in group 232 in time period 199", "No units in group 232 in time period 200", "No units in group 232 in time period 201", "No units in group 232 in time period 202", "No units in group 232 in time period 203", "No units in group 232 in time period 204", "No units in group 232 in time period 205", "No units in group 232 in time period 206", "No units in group 232 in time period 207", "No units in group 232 in time period 208", "No units in group 232 in time period 209", "No units in group 232 in time period 210", "No units in group 232 in time period 211", "No units in group 232 in time period 212", "No units in group 232 in time period 213", "No units in group 232 in time period 214", "No units in group 232 in time period 215", "No units in group 232 in time period 216", "No units in group 232 in time period 217", "No units in group 232 in time period 218", "No units in group 232 in time period 219", "No units in group 232 in time period 220", "No units in group 232 in time period 221", "No units in group 232 in time period 222", "No units in group 232 in time period 223", "No units in group 232 in time period 224", "No units in group 232 in time period 225", "No units in group 232 in time period 226", "No units in group 232 in time period 227", "No units in group 232 in time period 228", "No units in group 232 in time period 229", "No units in group 232 in time period 230", "No units in group 232 in time period 231", "No units in group 232 in time period 232", "No units in group 232 in time period 233", "No units in group 232 in time period 234", "No units in group 232 in time period 235", "No units in group 232 in time period 236", "No units in group 232 in time period 237", "No units in group 232 in time period 238", "No units in group 232 in time period 239", "No units in group 232 in time period 240", "No units in group 232 in time period 241", "No units in group 234 in time period 189", "No units in group 234 in time period 188", "No units in group 234 in time period 190", "No units in group 234 in time period 191", "No units in group 234 in time period 192", "No units in group 234 in time period 193", "No units in group 234 in time period 194", "No units in group 234 in time period 195", "No units in group 234 in time period 196", "No units in group 234 in time period 197", "No units in group 234 in time period 198", "No units in group 234 in time period 199", "No units in group 234 in time period 200", "No units in group 234 in time period 201", "No units in group 234 in time period 202", "No units in group 234 in time period 203", "No units in group 234 in time period 204", "No units in group 234 in time period 205", "No units in group 234 in time period 206", "No units in group 234 in time period 207", "No units in group 234 in time period 208", "No units in group 234 in time period 209", "No units in group 234 in time period 210", "No units in group 234 in time period 211", "No units in group 234 in time period 212", "No units in group 234 in time period 213", "No units in group 234 in time period 214", "No units in group 234 in time period 215", "No units in group 234 in time period 216", "No units in group 234 in time period 217", "No units in group 234 in time period 218", "No units in group 234 in time period 219", "No units in group 234 in time period 220", "No units in group 234 in time period 221", "No units in group 234 in time period 222", "No units in group 234 in time period 223", "No units in group 234 in time period 224", "No units in group 234 in time period 225", "No units in group 234 in time period 226", "No units in group 234 in time period 227", "No units in group 234 in time period 228", "No units in group 234 in time period 229", "No units in group 234 in time period 230", "No units in group 234 in time period 231", "No units in group 234 in time period 232", "No units in group 234 in time period 233", "No units in group 234 in time period 234", "No units in group 234 in time period 235", "No units in group 234 in time period 236", "No units in group 234 in time period 237", "No units in group 234 in time period 238", "No units in group 234 in time period 239", "No units in group 234 in time period 240", "No units in group 234 in time period 241", "No units in group 235 in time period 189", "No units in group 235 in time period 188", "No units in group 235 in time period 190", "No units in group 235 in time period 191", "No units in group 235 in time period 192", "No units in group 235 in time period 193", "No units in group 235 in time period 194", "No units in group 235 in time period 195", "No units in group 235 in time period 196", "No units in group 235 in time period 197", "No units in group 235 in time period 198", "No units in group 235 in time period 199", "No units in group 235 in time period 200", "No units in group 235 in time period 201", "No units in group 235 in time period 202", "No units in group 235 in time period 203", "No units in group 235 in time period 204", "No units in group 235 in time period 205", "No units in group 235 in time period 206", "No units in group 235 in time period 207", "No units in group 235 in time period 208", "No units in group 235 in time period 209", "No units in group 235 in time period 210", "No units in group 235 in time period 211", "No units in group 235 in time period 212", "No units in group 235 in time period 213", "No units in group 235 in time period 214", "No units in group 235 in time period 215", "No units in group 235 in time period 216", "No units in group 235 in time period 217", "No units in group 235 in time period 218", "No units in group 235 in time period 219", "No units in group 235 in time period 220", "No units in group 235 in time period 221", "No units in group 235 in time period 222", "No units in group 235 in time period 223", "No units in group 235 in time period 224", "No units in group 235 in time period 225", "No units in group 235 in time period 226", "No units in group 235 in time period 227", "No units in group 235 in time period 228", "No units in group 235 in time period 229", "No units in group 235 in time period 230", "No units in group 235 in time period 231", "No units in group 235 in time period 232", "No units in group 235 in time period 233", "No units in group 235 in time period 234", "No units in group 235 in time period 235", "No units in group 235 in time period 236", "No units in group 235 in time period 237", "No units in group 235 in time period 238", "No units in group 235 in time period 239", "No units in group 235 in time period 240", "No units in group 235 in time period 241", "No units in group 237 in time period 189", "No units in group 237 in time period 188", "No units in group 237 in time period 190", "No units in group 237 in time period 191", "No units in group 237 in time period 192", "No units in group 237 in time period 193", "No units in group 237 in time period 194", "No units in group 237 in time period 195", "No units in group 237 in time period 196", "No units in group 237 in time period 197", "No units in group 237 in time period 198", "No units in group 237 in time period 199", "No units in group 237 in time period 200", "No units in group 237 in time period 201", "No units in group 237 in time period 202", "No units in group 237 in time period 203", "No units in group 237 in time period 204", "No units in group 237 in time period 205", "No units in group 237 in time period 206", "No units in group 237 in time period 207", "No units in group 237 in time period 208", "No units in group 237 in time period 209", "No units in group 237 in time period 210", "No units in group 237 in time period 211", "No units in group 237 in time period 212", "No units in group 237 in time period 213", "No units in group 237 in time period 214", "No units in group 237 in time period 215", "No units in group 237 in time period 216", "No units in group 237 in time period 217", "No units in group 237 in time period 218", "No units in group 237 in time period 219", "No units in group 237 in time period 220", "No units in group 237 in time period 221", "No units in group 237 in time period 222", "No units in group 237 in time period 223", "No units in group 237 in time period 224", "No units in group 237 in time period 225", "No units in group 237 in time period 226", "No units in group 237 in time period 227", "No units in group 237 in time period 228", "No units in group 237 in time period 229", "No units in group 237 in time period 230", "No units in group 237 in time period 231", "No units in group 237 in time period 232", "No units in group 237 in time period 233", "No units in group 237 in time period 234", "No units in group 237 in time period 235", "No units in group 237 in time period 236", "No units in group 237 in time period 237", "No units in group 237 in time period 238", "No units in group 237 in time period 239", "No units in group 237 in time period 240", "No units in group 237 in time period 241", "No units in group 242 in time period 189", "No units in group 242 in time period 188", "No units in group 242 in time period 190", "No units in group 242 in time period 191", "No units in group 242 in time period 192", "No units in group 242 in time period 193", "No units in group 242 in time period 194", "No units in group 242 in time period 195", "No units in group 242 in time period 196", "No units in group 242 in time period 197", "No units in group 242 in time period 198", "No units in group 242 in time period 199", "No units in group 242 in time period 200", "No units in group 242 in time period 201", "No units in group 242 in time period 202", "No units in group 242 in time period 203", "No units in group 242 in time period 204", "No units in group 242 in time period 205", "No units in group 242 in time period 206", "No units in group 242 in time period 207", "No units in group 242 in time period 208", "No units in group 242 in time period 209", "No units in group 242 in time period 210", "No units in group 242 in time period 211", "No units in group 242 in time period 212", "No units in group 242 in time period 213", "No units in group 242 in time period 214", "No units in group 242 in time period 215", "No units in group 242 in time period 216", "No units in group 242 in time period 217", "No units in group 242 in time period 218", "No units in group 242 in time period 219", "No units in group 242 in time period 220", "No units in group 242 in time period 221", "No units in group 242 in time period 222", "No units in group 242 in time period 223", "No units in group 242 in time period 224", "No units in group 242 in time period 225", "No units in group 242 in time period 226", "No units in group 242 in time period 227", "No units in group 242 in time period 228", "No units in group 242 in time period 229", "No units in group 242 in time period 230", "No units in group 242 in time period 231", "No units in group 242 in time period 232", "No units in group 242 in time period 233", "No units in group 242 in time period 234", "No units in group 242 in time period 235", "No units in group 242 in time period 236", "No units in group 242 in time period 237", "No units in group 242 in time period 238", "No units in group 242 in time period 239", "No units in group 242 in time period 240", "No units in group 242 in time period 241", "Not returning pre-test Wald statistic due to singular covariance matrix", "Used bootstrap procedure to compute simultaneous confidence band"],
+    "simple_att": [
+      {
+        "estimate": -0.095411456703464,
+        "std_error": 0.129266807815732,
+        "statistic": -0.738097105634974,
+        "p_value": 0.46045544247596,
+        "observations": 133292,
+        "firms": 4748,
+        "api_adopters": 174
+      }
+    ],
+    "dynamic_att_visible": [
+      {
+        "event_time": -8,
+        "estimate": -0.0239320786558483,
+        "std_error": 0.0330392741232824,
+        "conf_low": -0.0886890559374819,
+        "conf_high": 0.0408248986257853
+      },
+      {
+        "event_time": -7,
+        "estimate": -0.0349078147285712,
+        "std_error": 0.0277955884904811,
+        "conf_low": -0.0893871681699141,
+        "conf_high": 0.0195715387127716
+      },
+      {
+        "event_time": -6,
+        "estimate": 0.00484933188477813,
+        "std_error": 0.0159956981566489,
+        "conf_low": -0.0265022365022538,
+        "conf_high": 0.03620090027181
+      },
+      {
+        "event_time": -5,
+        "estimate": -0.0438581332889159,
+        "std_error": 0.0192074854916538,
+        "conf_low": -0.0815048048525572,
+        "conf_high": -0.0062114617252745
+      },
+      {
+        "event_time": -4,
+        "estimate": -0.0183064413783921,
+        "std_error": 0.0171847778979072,
+        "conf_low": -0.0519886060582902,
+        "conf_high": 0.0153757233015061
+      },
+      {
+        "event_time": -3,
+        "estimate": -0.0170751299898042,
+        "std_error": 0.0178360982734785,
+        "conf_low": -0.0520338826058221,
+        "conf_high": 0.0178836226262138
+      },
+      {
+        "event_time": -2,
+        "estimate": 0.0344293376245598,
+        "std_error": 0.0190456451291123,
+        "conf_low": -0.0029001268285004,
+        "conf_high": 0.07175880207762
+      },
+      {
+        "event_time": -1,
+        "estimate": -0.00900367679401403,
+        "std_error": 0.0241606213722478,
+        "conf_low": -0.0563584946836197,
+        "conf_high": 0.0383511410955917
+      },
+      {
+        "event_time": 0,
+        "estimate": -0.423717891177403,
+        "std_error": 0.119283898229372,
+        "conf_low": -0.657514331706973,
+        "conf_high": -0.189921450647834
+      },
+      {
+        "event_time": 1,
+        "estimate": -0.410326615617233,
+        "std_error": 0.120833340205481,
+        "conf_low": -0.647159962419976,
+        "conf_high": -0.17349326881449
+      },
+      {
+        "event_time": 2,
+        "estimate": -0.364891592385195,
+        "std_error": 0.131510879528612,
+        "conf_low": -0.622652916261274,
+        "conf_high": -0.107130268509116
+      },
+      {
+        "event_time": 3,
+        "estimate": -0.383883795180222,
+        "std_error": 0.122411634387176,
+        "conf_low": -0.623810598579087,
+        "conf_high": -0.143956991781357
+      },
+      {
+        "event_time": 4,
+        "estimate": -0.323676600038223,
+        "std_error": 0.133946881012027,
+        "conf_low": -0.586212486821796,
+        "conf_high": -0.06114071325465
+      },
+      {
+        "event_time": 5,
+        "estimate": -0.366533175211958,
+        "std_error": 0.12749301025644,
+        "conf_low": -0.616419475314581,
+        "conf_high": -0.116646875109335
+      },
+      {
+        "event_time": 6,
+        "estimate": -0.294863369383938,
+        "std_error": 0.138694620776702,
+        "conf_low": -0.566704826106274,
+        "conf_high": -0.0230219126616015
+      },
+      {
+        "event_time": 7,
+        "estimate": -0.271540880964539,
+        "std_error": 0.1334265104274,
+        "conf_low": -0.533056841402243,
+        "conf_high": -0.0100249205268347
+      },
+      {
+        "event_time": 8,
+        "estimate": -0.2087699567056,
+        "std_error": 0.147204916647258,
+        "conf_low": -0.497291593334226,
+        "conf_high": 0.0797516799230263
+      }
+    ]
+  }
+}
