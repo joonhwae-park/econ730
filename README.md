@@ -2,7 +2,7 @@
 
 This repository replicates Table 1 main result from:
 
-Hersh, J. and R. K. Mithas, "How APIs Create Growth by Inverting the Firm".
+Benzell, S. G., Hersh, J., & Van Alstyne, M. (2024). How APIs create growth by inverting the firm. Management Science, 70(10), 7120-7141.
 
 The replicated part is the main two-way fixed effects result for public API adoption and log market value. The original Stata code uses `reghdfe` with firm fixed effects, quarter fixed effects, and firm clustered standard errors. The R code here uses `fixest::feols()` for the same specification.
 
