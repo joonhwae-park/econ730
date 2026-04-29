@@ -1,0 +1,8 @@
+analysis_dataset/*.dta
+analysis_dataset/*.rds
+analysis_dataset/*.xlsx
+logs/
+model_outputs/
+.Rhistory
+.Rproj.user/
+*.Rproj
